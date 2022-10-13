@@ -22,117 +22,211 @@ class GameSystem {
 
 export function allModusls() {
     const ret = [
-        new AdvantureModul(
-            '__default',
-            1),
-        new AdvantureModul(
-            'Из Бездны',
-            1,
-            ['Бездна', 'Бездны', 'Из Бездны', 'Out of the Abyss', 'Abyss'],
-            '#8e24aa',
-            'content/img/icons/abyss.png'),
-        new AdvantureModul(
-            'Нисхождение в Авернус',
-            1,
-            ['Нисхождение в Авернус', 'Авернус', 'Avernus', 'Descent into Avernus'],
-            '#f45329',
-            'content/img/icons/avernus.png'),
-        new AdvantureModul(
-            'Оракул Войны',
-            1,
-            ['Оракул Войны', 'Трофеи Последней Войны', 'Эберрон', 'Eberron', 'Эбберон'],
-            '#f45329',
-            'content/img/icons/eberron.png'),
-        new AdvantureModul(
-            'Элементальное зло',
-            1,
-            ['Элементальное зло', 'Elemental Evil', 'Мулмастер', 'Mulmaster'],
-            '#2e45ff',
-            'content/img/icons/elementalEvil.png'),
-        new AdvantureModul(
-            'Гильдия Героев',
-            1,
-            ['Гильдия Героев', 'Гильдия'],
-            '#9c9c9c',
-            'content/img/icons/guildOfHeroes.png'),
-        new AdvantureModul(
-            'Клад Королевы Драконов',
-            1,
-            ['Клад Королевы Драконов', 'Hoard of the Dragon Queen'],
-            '#c30000',
-            'content/img/icons/hoardOfTheDragonQueen.png'),
-        new AdvantureModul(
-            'Масти Туманов',
-            1,
-            ['Масти Туманов'],
-            '#0e4901'),
-        new AdvantureModul(
-            'Туманы Рейвенлофта',
-            1,
-            ['Туманы Рейвенлофта'],
-            '#0e4901'),
+        {
+          "name": "__default",
+          "keyWords": [],
+          "systemId": 1
+        },
+        {
+          "name": "Из Бездны",
+          "keyWords": [
+            "Бездна",
+            "Бездны",
+            "Из Бездны",
+            "Out of the Abyss",
+            "Abyss"
+          ],
+          "color": "#8e24aa",
+          "iconPath": "content/img/icons/abyss.png",
+          "systemId": 1
+        },
+        {
+          "name": "Нисхождение в Авернус",
+          "keyWords": [
+            "Нисхождение в Авернус",
+            "Авернус",
+            "Avernus",
+            "Descent into Avernus"
+          ],
+          "color": "#f45329",
+          "iconPath": "content/img/icons/avernus.png",
+          "systemId": 1
+        },
+        {
+          "name": "Оракул Войны",
+          "keyWords": [
+            "Оракул Войны",
+            "Трофеи Последней Войны",
+            "Эберрон",
+            "Eberron",
+            "Эбберон"
+          ],
+          "color": "#D5AC1D",
+          "iconPath": "content/img/icons/eberron.png",
+          "systemId": 1
+        },
+        {
+          "name": "Элементальное зло",
+          "keyWords": [
+            "Элементальное зло",
+            "Elemental Evil",
+            "Мулмастер",
+            "Mulmaster"
+          ],
+          "color": "#055FC8",
+          "iconPath": "content/img/icons/elementalEvil.png",
+          "systemId": 1
+        },
+        {
+          "name": "Гильдия Героев",
+          "keyWords": [
+            "Гильдия Героев",
+            "Гильдия"
+          ],
+          "color": "#450265",
+          "iconPath": "content/img/icons/guildOfHeroes.png",
+          "systemId": 1
+        },
+        {
+          "name": "Клад Королевы Драконов",
+          "keyWords": [
+            "Клад Королевы Драконов",
+            "Hoard of the Dragon Queen"
+          ],
+          "color": "#008A69",
+          "iconPath": "content/img/icons/hoardOfTheDragonQueen.png",
+          "systemId": 1
+        },
+        {
+          "name": "Масти Туманов",
+          "keyWords": [
+            "Масти Туманов"
+          ],
+          "color": "#0e4901",
+          "systemId": 1
+        },
+        {
+          "name": "Туманы Рейвенлофта",
+          "keyWords": [
+            "Туманы Рейвенлофта",
+            "Туманы Рейвенфлота"
+          ],
+          "color": "#920101",
+          "systemId": 1
+        }
     ]
     return ret;
 }
 
 export function allSystems() {
     const ret = [
-        new GameSystem(
-            'Dungeons and Dragons e5',
-            1, // id = 1 должен быть только у ДнД
-            ['Dungeons and Dragons', 'DnD', 'Подземелья и драконы', 'D&D', 'ДнД'],
-            '#f45329',
-            'content/img/icons/dnd.png'
-            ),
-        new GameSystem(
-            'Чужой',
-            2,
-            ['Alien', 'Чужой'],
-            '#8e24aa',
-            'content/img/icons/alien.png'),
-        new GameSystem(
-            'Зов Ктулху',
-            3,
-            ['Зов Ктулху', 'Ктулху', 'Call of Cthulhu', 'Cthulhu'],
-            '#0e4901',
-            'content/img/icons/cthulhu.png'),
-        new GameSystem(
-            'Дюна: Приключения в Империи',
-            4,
-            ['Дюна', 'Dune'],
-            '#f45329',
-            'content/img/icons/dune.png'),
-        new GameSystem(
-            'Starfinder',
-            5,
-            ['Starfinder', 'Старфайндер'],
-            '#10b4e9',
-            'content/img/icons/starfinder.png'),
-        new GameSystem(
-            'Warhammer',
-            6,
-            ['Warhammer', 'Молот войны', 'Вархаммер'],
-            '#0e4901',
-            'content/img/icons/warhammer.png'),
-        new GameSystem(
-            'Delta Green',
-            7,
-            ['Delta Green', 'Delta', 'Дельта Грин'],
-            '#0e4901',
-            'content/img/icons/cthulhu.png'),
-        new GameSystem(
-            'Cyberpunk',
-            8,
-            ['Cyberpunk', 'Киберпанк'],
-            '#fdf000',
-            'content/img/icons/cyberpunk.png'),
-        new GameSystem(
-            'Шиноби',
-            9,
-            ['Шиноби', 'Shinobi'],
-            '#ffffff',
-            'content/img/icons/feather.png'),
-    ]
+        {
+          "name": "Dungeons and Dragons e5",
+          "keyWords": [
+            "Dungeons and Dragons",
+            "DnD",
+            "Подземелья и драконы",
+            "D&D",
+            "ДнД"
+          ],
+          "color": "#000000",
+          "iconPath": "content/img/icons/dnd.png",
+          "id": 1 
+        },
+        {
+          "name": "Чужой",
+          "keyWords": [
+            "Alien",
+            "Чужой"
+          ],
+          "color": "#8e24aa",
+          "iconPath": "content/img/icons/alien.png",
+          "id": 2
+        },
+        {
+          "name": "Зов Ктулху",
+          "keyWords": [
+            "Зов Ктулху",
+            "Ктулху",
+            "Call of Cthulhu",
+            "Cthulhu"
+          ],
+          "color": "#0e4901",
+          "iconPath": "content/img/icons/cthulhu.png",
+          "id": 3
+        },
+        {
+          "name": "Дюна: Приключения в Империи",
+          "keyWords": [
+            "Дюна",
+            "Dune"
+          ],
+          "color": "#8B4402",
+          "iconPath": "content/img/icons/dune.png",
+          "id": 4
+        },
+        {
+          "name": "Starfinder",
+          "keyWords": [
+            "Starfinder",
+            "Старфайндер"
+          ],
+          "color": "#10b4e9",
+          "iconPath": "content/img/icons/starfinder.png",
+          "id": 5
+        },
+        {
+          "name": "Warhammer",
+          "keyWords": [
+            "Warhammer",
+            "Молот войны",
+            "Вархаммер"
+          ],
+          "color": "#0e4901",
+          "iconPath": "content/img/icons/warhammer.png",
+          "id": 6
+        },
+        {
+          "name": "Delta Green",
+          "keyWords": [
+            "Delta Green",
+            "Delta",
+            "Дельта Грин"
+          ],
+          "color": "#0e4901",
+          "iconPath": "content/img/icons/cthulhu.png",
+          "id": 7
+        },
+        {
+          "name": "Cyberpunk",
+          "keyWords": [
+            "Cyberpunk",
+            "Киберпанк"
+          ],
+          "color": "#fdf000",
+          "iconPath": "content/img/icons/cyberpunk.png",
+          "id": 8
+        },
+        {
+          "name": "Шиноби",
+          "keyWords": [
+            "Шиноби",
+            "Shinobi"
+          ],
+          "color": "#ffffff",
+          "iconPath": "content/img/icons/feather.png",
+          "id": 9
+        },
+        {
+          "name": "Кавалерия",
+          "keyWords": [
+            "Кавалерия"
+          ],
+          "color": "#f45329",
+          "iconPath": "content/img/icons/feather.png",
+          "id": 10
+        }
+      ]
     return ret;
 }
 

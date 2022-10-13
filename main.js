@@ -3,5 +3,6 @@ import { log } from "./src/logger.js";
 // const dateFormat = require('dateformat');
 
 log('START!');
-await getGroupedEvents();
+const result = await getGroupedEvents();
+log('result: ' + JSON.stringify(result));
 log('END!');

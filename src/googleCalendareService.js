@@ -8,36 +8,31 @@ import { google } from 'googleapis';
 
 import { log } from "./logger.js";
 import { allModusls, allSystems } from "./advantureModuls.js";
-// import { gapi } from "https://apis.google.com/js/api.js"
-// import google from "https://accounts.google.com/gsi/client"
 
-// TODO(developer): Set to client ID and API key from the Developer Console
+// Авторизация по API_KEY
 // const CLIENT_ID = '521376882978-e8mm86egr3e3qda960e48n98sboipfkp.apps.googleusercontent.com';
 // const API_KEY = 'AIzaSyCpLCa3ah1vMM-buXzAnlsy4UkxpVhOi-I';
 // const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
-const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
-const CALENDARID = 'bn0trnr1598i0m2j67h3qs5kh0@group.calendar.google.com';
+
+// Авторизаяция по файлу
 const TOKEN_PATH = join(cwd(), 'token.json');
 const CREDENTIALS_PATH = join(cwd(), 'credentials.json');
 
+const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+const CALENDARID = 'bn0trnr1598i0m2j67h3qs5kh0@group.calendar.google.com';
 
-const DEFAULTCOLOR = '#fa573c';
+const DEFAULTCOLOR = '#000000';
 const DEFAULTICONPATH = 'content/img/icons/dnd.png';
 const WEEKDAYS = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
-// И тут кто-то спросит: "На какого хуя список дней недели начинается с субботы?"
-// А я отвечу вам! Потому что функция getDay() на субботу возвращает 0, на воскресенье 1 и т. д.
-const DAYCOUNT = 14
+const DAYCOUNT = 14;
 
 async function getGroupedEvents() {
-    await authorize().then(async auth => {
+    return await authorize().then(async auth => {
       
       const service = google.calendar({version: 'v3', auth});
-
-      // const calendar = service.calendarList.get({ calendarId: CALENDARID });
       const events = await getEvents(service);
       const groupedEvents = await groupEventsByDays(events);
-
-      log('result: ' + JSON.stringify(groupedEvents));
+      return groupedEvents;
     }).catch(console.error);
 }
 
@@ -49,7 +44,6 @@ export { getGroupedEvents };
 async function groupEventsByDays(events) {
   const days = [];
   const today = new Date();
-  log(today);
   for (let i = 0; i < DAYCOUNT; i++) {
     const date = new Date(today);
     date.setDate(date.getDate() + i);
