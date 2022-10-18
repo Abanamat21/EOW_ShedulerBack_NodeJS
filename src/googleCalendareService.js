@@ -10,9 +10,8 @@ import { log } from "./logger.js";
 import { allModusls, allSystems } from "./advantureModuls.js";
 
 // Авторизация по API_KEY
-// const CLIENT_ID = '521376882978-e8mm86egr3e3qda960e48n98sboipfkp.apps.googleusercontent.com';
-// const API_KEY = 'AIzaSyCpLCa3ah1vMM-buXzAnlsy4UkxpVhOi-I';
-// const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
+const EMAIL_KEY = 'eow-serviceaccount@testproject-314605.iam.gserviceaccount.com';
+const API_KEY = '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDjo2ltt8w6HW7n\nBomHLl+3rsyfracOG4yHXwleY+LAEsnhsBDiyP+4vHXHgisx0xT1CIkbqFjVuDEm\nGSY9l36ezqvDPjx+pOp6AmWEiL7DxuLSH4mWS+TOAay1oJ5d5hY/+vqb23gaoOkZ\nQ6lcBiNN4kdY722aRxUBZxP5IBjgPbCC3DPmK+PePMFK3bexEWrnI8HwXM7T85cf\nHUu79q7b3ihC+N33EsmKblw6T0keBxIShD1tbZ8I+QyIYzT9AExk9IWkwYbR8eT9\nAX5iLB7NIfzxTrzCi+I+Pxyr0cjdTFt7CkChuwMY79DIvEmafmqE/aWl8hni2cwa\n6PPbn6PFAgMBAAECggEAJn9u55bTa6qppFmXLaz6lBp0UbbxDzI6iHRapcN3yCsF\nSG1Z1bjPgqMguh56BqGfpDcO1QYaC/7sFPjg3j6+M8ZZBxqB6ZsjaoH4QDtOI9cB\nai7aOnhYWDyxREBHODMe5TAhbPVncP1wnoyyWjVRiCzyCwjm/NXzp/qSRqoWeumy\nQ+BO2s7cuFmQRjE0O4gqCi1F/5eiHJFtpImOQX0WlaEyTzJ+eDzfpKAkXW5Q2YUT\nqOUsLx/iWyFRw+8bwqb681JKZl2FpanlghL9f5xZpg/gI59yDBmnfxIaawkSiBdH\ncKceSiX3OHPepgfoIyf4FZj0XAHBlPziFE4xrpkJsQKBgQD1eB5TxVQoEig7l/ju\nNlJ9u6VWhZ5rA4Vqf7ckdw/bDqHTgX/bgPzpAVsNy396ZV0/VjkEpQaEgpn+WhvG\nCC9BAxBXXGkHIC6SJBsq3aVMhweAJcLBc1svqMB+h++3HNzgr8EG7GhSYjyWtJmv\ndh4SVAqsIDaYyj3scZBHhQlB7QKBgQDtZ3bqOxCWURdt/rYe1420SODGm8yutuI7\n3iN25Xp211iIzuWWLOHCtIbOHRPSptV5HkbgrreEhL0oFxeYHxRKR/tmbcPpt/yZ\n6DaccgR/9+IxyU3tNRLvMqiWAbXwsg/MSITOdf7fdAEY76nArbvuge19dKM//ZAI\n4tFkXCkOOQKBgGc47s/dUAlVsVN2EbjiYQf8a4eZwsdPgMALGtGbu7ArVAOkFkcQ\n08mLx2ViqKWokHC86lc4qif435bk/37kHDLjffCurH/RmaPcyQvajtNCiPXrax18\nS+Ebvm627Sf8XCmj3rDxouDZ7I6XPXVaX0Tn0GEXXr4bdbTDAKACoqT1AoGAblYG\n64f2Bpa7t/CIvj7aai7w4P2qHI19CewNOYYf67ncOQFHrQtBBdgXSxYyj1Xgo0ES\nGfy56Eo1C7vnyFixenCIBCwBwM81BGbrcrx/IOaZZyAzKorfOPKnbchvweVP+Fa/\n+qDWiw4EMI26rIVSceBK+2LJOMVlOuwH+4flwOkCgYEAv/tZ/QdQUz9qw411tNx3\nWuHSxnFep5hHoXTvi2EyvDZ3oYPhF0Ms5b/wiO9cBrVP5CrCnfbTyPMASjBsRVqZ\n/vulLjx/bbDuagDIyaJqAQz140s/7x8IkPomGLBj059uHxCLPya/3vcWVBdOXom1\nL0Juj2s/EZEtOt8zPbfBfv0=\n-----END PRIVATE KEY-----\n';
 
 // Авторизаяция по файлу
 const TOKEN_PATH = join(cwd(), 'token.json');
@@ -27,13 +26,16 @@ const WEEKDAYS = ['Воскресенье', 'Понедельник', 'Втор�
 const DAYCOUNT = 14;
 
 async function getGroupedEvents() {
-    return await authorize().then(async auth => {
-      
-      const service = google.calendar({version: 'v3', auth});
-      const events = await getEvents(service);
-      const groupedEvents = await groupEventsByDays(events);
-      return groupedEvents;
-    }).catch(console.error);
+  const auth = await webApiAuthorize();
+  const service = google.calendar(
+    {
+      version: 'v3', 
+      project: 521376882978,
+      auth: auth
+    });
+  const events = await getEvents(service);
+  const groupedEvents = await groupEventsByDays(events);
+  return groupedEvents;
 }
 
 export { getGroupedEvents };
@@ -83,8 +85,6 @@ async function getEvents(service) {
     calendarId: CALENDARID
   });
   const colors = await getColors(service);
-  const calendar = await service.calendarList.get({'calendarId': CALENDARID});
-  const calendarColor = calendar.backgroundColor;
 
   const apiEvents = apiEventsResult.data.items;
   let vmEvents = [];
@@ -99,7 +99,7 @@ async function getEvents(service) {
     if (eventColor)                 color = colors[eventColor].background;
     else if (modul.color)           color = modul.color
     else if (modul.system.color)    color = modul.system.color
-    else if (calendarColor)         color = calendarColor  
+    // else if (calendarColor)         color = calendarColor  
 
     // Определяем картинку
     if (modul.iconPath)               iconPath = modul.iconPath
@@ -261,10 +261,9 @@ async function saveCredentials(client) {
 }
 
 /**
- * Load or request or authorization to call APIs.
- *
+ * Авторизация для десктопного приложения по файлу credentials.json
  */
-async function authorize() {
+async function desktopAuthorize() {
   let client = await loadSavedCredentialsIfExist();
   if (client) {
     return client;
@@ -277,6 +276,20 @@ async function authorize() {
     await saveCredentials(client);
   }
   return client;
+}
+
+/**
+ * Авторизация для веб-приложения по API ключу
+ */
+async function webApiAuthorize() {
+  const jwtClient = new google.auth.JWT(
+    EMAIL_KEY,
+    null,
+    API_KEY,
+    SCOPES
+  );
+  await jwtClient.authorize();
+  return jwtClient;
 }
 
 /**
